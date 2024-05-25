@@ -9,7 +9,7 @@ const name = camelCase(pkg.name);
 
 // The modules you want to expose
 const exposes = {
-  './slider': './src/slider.jsx',
+  './slider': './src/Slider.tsx',
 };
 
 const shared = {
