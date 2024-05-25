@@ -26,4 +26,28 @@ PS C:\react\unpkg-mf-react> cd .\react-unpkg-mf-consumer\
 PS C:\react\unpkg-mf-react\react-unpkg-mf-consumer> npm install
 PS C:\react\unpkg-mf-react\react-unpkg-mf-consumer> npm install camel-case -D
 
+PS C:\react\unpkg-mf-react\react-unpkg-mf-consumer> npm run start
+http://localhost:8080/
+
+------------------------------
+
+PS C:\react\unpkg-mf-react> npx create-mf-app
+? Pick the name of your app: jherr-mf-slider
+? Project Type: Application
+? Port number: 3001
+? Framework: react
+? Language: typescript
+? CSS: CSS
+? Packer: Webpack
+Your 'jherr-mf-slider' project is ready to go.
+
+Next steps:
+
+▶️ cd jherr-mf-slider
+▶️ npm install
+▶️ npm start
+
+PS C:\react\unpkg-mf-react> cd .\jherr-mf-slider\
+PS C:\react\unpkg-mf-react\jherr-mf-slider> npm install
+
 
