@@ -5,3 +5,23 @@ https://github.com/jherr/unpkg-mf-react-finished
 https://github.com/Annie-Huang/unpkg-mf-react
 
 ------------------------------------------------------------
+
+PS C:\react\unpkg-mf-react> npx create-mf-app
+? Pick the name of your app: react-unpkg-mf-consumer
+? Project Type: Application
+? Port number: 8080
+? Framework: react
+? Language: typescript
+? CSS: CSS
+? Packer: Webpack
+Your 'react-unpkg-mf-consumer' project is ready to go.
+
+Next steps:
+
+▶️ cd react-unpkg-mf-consumer
+▶️ npm install
+▶️ npm start
+
+PS C:\react\unpkg-mf-react> cd .\react-unpkg-mf-consumer\
+PS C:\react\unpkg-mf-react\react-unpkg-mf-consumer> npm install
+
