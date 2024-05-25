@@ -1,65 +1,95 @@
-const HtmlWebPackPlugin = require("html-webpack-plugin");
-const ModuleFederationPlugin = require("webpack/lib/container/ModuleFederationPlugin");
-const Dotenv = require('dotenv-webpack');
-const deps = require("./package.json").dependencies;
-module.exports = (_, argv) => ({
-  output: {
-    publicPath: "http://localhost:3001/",
-  },
+const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPlugin');
+const deps = require('./package.json').dependencies;
+const { merge } = require('webpack-merge');
+const path = require('path');
+const { camelCase } = require('camel-case');
 
+const pkg = require('./package.json');
+const name = camelCase(pkg.name);
+
+// The modules you want to expose
+const exposes = {
+  './slider': './src/slider.jsx',
+};
+
+const shared = {
+  ...deps,
+  react: {
+    singleton: true,
+    requiredVersion: deps.react,
+  },
+};
+
+/** @type {webpack.Configuration} */
+const baseConfig = {
+  mode: process.env.NODE_ENV === 'development' ? 'development' : 'production',
   resolve: {
-    extensions: [".tsx", ".ts", ".jsx", ".js", ".json"],
-  },
-
-  devServer: {
-    port: 3001,
-    historyApiFallback: true,
+    extensions: ['.tsx', '.ts', '.jsx', '.js', '.json'],
   },
 
   module: {
     rules: [
       {
         test: /\.m?js/,
-        type: "javascript/auto",
+        type: 'javascript/auto',
         resolve: {
           fullySpecified: false,
         },
       },
       {
-        test: /\.(css|s[ac]ss)$/i,
-        use: ["style-loader", "css-loader", "postcss-loader"],
+        test: /\.json$/,
+        loader: 'json-loader',
+      },
+      {
+        test: /\.css$/i,
+        use: ['style-loader', 'css-loader'],
       },
       {
         test: /\.(ts|tsx|js|jsx)$/,
         exclude: /node_modules/,
         use: {
-          loader: "babel-loader",
+          loader: 'babel-loader',
         },
       },
     ],
   },
+};
 
+/** @type {webpack.Configuration} */
+const browserConfig = {
+  output: {
+    path: path.resolve('./dist/browser'),
+  },
   plugins: [
     new ModuleFederationPlugin({
-      name: "jherr_mf_slider",
-      filename: "remoteEntry.js",
-      remotes: {},
-      exposes: {},
-      shared: {
-        ...deps,
-        react: {
-          singleton: true,
-          requiredVersion: deps.react,
-        },
-        "react-dom": {
-          singleton: true,
-          requiredVersion: deps["react-dom"],
-        },
-      },
+      name,
+      filename: 'remote-entry.js',
+      // remotes: {},
+      exposes,
+      shared,
     }),
-    new HtmlWebPackPlugin({
-      template: "./src/index.html",
-    }),
-    new Dotenv()
   ],
-});
+};
+
+/** @type {webpack.Configuration} */
+const nodeConfig = {
+  target: 'node',
+  output: {
+    path: path.resolve('./dist/node'),
+  },
+  plugins: [
+    new ModuleFederationPlugin({
+      name,
+      filename: 'remote-entry.js',
+      library: { type: 'commonjs' },
+      // remotes: {},
+      exposes,
+      shared,
+    }),
+  ],
+};
+
+module.exports = [
+  merge(baseConfig, browserConfig),
+  merge(baseConfig, nodeConfig),
+];
