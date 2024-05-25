@@ -24,4 +24,6 @@ Next steps:
 
 PS C:\react\unpkg-mf-react> cd .\react-unpkg-mf-consumer\
 PS C:\react\unpkg-mf-react\react-unpkg-mf-consumer> npm install
+PS C:\react\unpkg-mf-react\react-unpkg-mf-consumer> npm install camel-case -D
+
 
