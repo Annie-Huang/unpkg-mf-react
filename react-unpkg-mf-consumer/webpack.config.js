@@ -1,14 +1,38 @@
-const HtmlWebPackPlugin = require("html-webpack-plugin");
-const ModuleFederationPlugin = require("webpack/lib/container/ModuleFederationPlugin");
+const HtmlWebPackPlugin = require('html-webpack-plugin');
+const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPlugin');
 const Dotenv = require('dotenv-webpack');
-const deps = require("./package.json").dependencies;
+const { camelCase } = require('camel-case');
+// const deps = require('./package.json').dependencies;
+
+const federatedRemotes = {
+  //  "your-package-name": "^1.0.0",
+};
+
+const deps = {
+  ...federatedRemotes,
+  ...require('./package.json').dependencies,
+};
+
+const unpkgRemote = (name) =>
+  `${camelCase(name)}@https://unpkg.com/${name}@${
+    deps[name]
+  }/dist/browser/remote-entry.js`;
+
+const remotes = Object.keys(federatedRemotes).reduce(
+  (remotes, lib) => ({
+    ...remotes,
+    [lib]: unpkgRemote(lib),
+  }),
+  {}
+);
+
 module.exports = (_, argv) => ({
   output: {
-    publicPath: "http://localhost:8080/",
+    publicPath: 'http://localhost:8080/',
   },
 
   resolve: {
-    extensions: [".tsx", ".ts", ".jsx", ".js", ".json"],
+    extensions: ['.tsx', '.ts', '.jsx', '.js', '.json'],
   },
 
   devServer: {
@@ -20,20 +44,20 @@ module.exports = (_, argv) => ({
     rules: [
       {
         test: /\.m?js/,
-        type: "javascript/auto",
+        type: 'javascript/auto',
         resolve: {
           fullySpecified: false,
         },
       },
       {
         test: /\.(css|s[ac]ss)$/i,
-        use: ["style-loader", "css-loader", "postcss-loader"],
+        use: ['style-loader', 'css-loader', 'postcss-loader'],
       },
       {
         test: /\.(ts|tsx|js|jsx)$/,
         exclude: /node_modules/,
         use: {
-          loader: "babel-loader",
+          loader: 'babel-loader',
         },
       },
     ],
@@ -41,25 +65,26 @@ module.exports = (_, argv) => ({
 
   plugins: [
     new ModuleFederationPlugin({
-      name: "react_unpkg_mf_consumer",
-      filename: "remoteEntry.js",
-      remotes: {},
-      exposes: {},
+      name: 'react_unpkg_mf_consumer',
+      filename: 'remoteEntry.js',
+      remotes,
+      // remotes: {},
+      // exposes: {},
       shared: {
         ...deps,
         react: {
           singleton: true,
           requiredVersion: deps.react,
         },
-        "react-dom": {
+        'react-dom': {
           singleton: true,
-          requiredVersion: deps["react-dom"],
+          requiredVersion: deps['react-dom'],
         },
       },
     }),
     new HtmlWebPackPlugin({
-      template: "./src/index.html",
+      template: './src/index.html',
     }),
-    new Dotenv()
+    new Dotenv(),
   ],
 });
