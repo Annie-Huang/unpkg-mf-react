@@ -1,0 +1,7 @@
+Fixing Module Federation Versioning (https://www.youtube.com/watch?v=ZFNxTy3fOO0)
+
+https://github.com/jherr/unpkg-mf-react
+https://github.com/jherr/unpkg-mf-react-finished
+https://github.com/Annie-Huang/unpkg-mf-react
+
+------------------------------------------------------------
