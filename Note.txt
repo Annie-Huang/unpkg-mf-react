@@ -51,3 +51,4 @@ PS C:\react\unpkg-mf-react> cd .\jherr-mf-slider\
 PS C:\react\unpkg-mf-react\jherr-mf-slider> npm install
 PS C:\react\unpkg-mf-react\jherr-mf-slider> npm install webpack-merge -D
 PS C:\react\unpkg-mf-react\jherr-mf-slider> npm install json-loader -D
+PS C:\react\unpkg-mf-react\jherr-mf-slider> npm uninstall postcss postcss-loader webpack-dev-server html-webpack-plugin dotenv-webpack autoprefixer
