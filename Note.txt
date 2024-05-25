@@ -49,5 +49,5 @@ Next steps:
 
 PS C:\react\unpkg-mf-react> cd .\jherr-mf-slider\
 PS C:\react\unpkg-mf-react\jherr-mf-slider> npm install
-
+PS C:\react\unpkg-mf-react\jherr-mf-slider> npm install webpack-merge -D
 
