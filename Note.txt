@@ -4,6 +4,8 @@ https://github.com/jherr/unpkg-mf-react
 https://github.com/jherr/unpkg-mf-react-finished
 https://github.com/Annie-Huang/unpkg-mf-react
 
+https://v2.chakra-ui.com/getting-started
+
 ------------------------------------------------------------
 
 PS C:\react\unpkg-mf-react> npx create-mf-app
@@ -53,3 +55,5 @@ PS C:\react\unpkg-mf-react\jherr-mf-slider> npm install webpack-merge -D
 PS C:\react\unpkg-mf-react\jherr-mf-slider> npm install json-loader -D
 PS C:\react\unpkg-mf-react\jherr-mf-slider> npm uninstall postcss postcss-loader webpack-dev-server html-webpack-plugin dotenv-webpack autoprefixer
 PS C:\react\unpkg-mf-react\jherr-mf-slider> npm install camel-case -D
+
+PS C:\react\unpkg-mf-react\jherr-mf-slider> npm i @chakra-ui/react @emotion/react @emotion/styled framer-motion
